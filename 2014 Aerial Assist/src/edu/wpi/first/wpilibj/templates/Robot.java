@@ -7,6 +7,7 @@
 package edu.wpi.first.wpilibj.templates;
 
 import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.can.CANTimeoutException;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -20,11 +21,11 @@ public class Robot extends SimpleRobot {
     /*
      * Jaquar Motor Controllers
      */
-    Jaguar leftMotor1;
-    Jaguar leftMotor2;
-    Jaguar rightMotor1;
-    Jaguar rightMotor2;
-    Jaguar pickupMotor;
+    CANJaguar leftMotor1;
+    CANJaguar leftMotor2;
+    CANJaguar rightMotor1;
+    CANJaguar rightMotor2;
+    CANJaguar pickupMotor;
 
     /*
      * pnuematics
@@ -33,11 +34,15 @@ public class Robot extends SimpleRobot {
      * This function is called once each time the robot enters autonomous mode.
      */
     public void autonomous() {
-        leftMotor1 = new Jaguar(2);
-        leftMotor2 = new Jaguar(3);
-        rightMotor1 = new Jaguar(4);
-        rightMotor2 = new Jaguar(5);
-        pickupMotor = new Jaguar(6);
+        try {
+            leftMotor1 = new CANJaguar(2);
+            leftMotor2 = new CANJaguar(3);
+            rightMotor1 = new CANJaguar(4);
+            rightMotor2 = new CANJaguar(5);
+            pickupMotor = new CANJaguar(6);
+        } catch (CANTimeoutException ex) {
+            ex.printStackTrace();
+        }
     }
 
     /**
