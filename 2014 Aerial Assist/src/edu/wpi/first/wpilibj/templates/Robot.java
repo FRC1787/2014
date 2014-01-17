@@ -38,8 +38,8 @@ public class Robot extends SimpleRobot {
      */
     private Compressor compressor = new Compressor(1, 1);
     private Solenoid pickupSolenoid = new Solenoid(1);
-    private Solenoid catapultSolenoid1 = new Solenoid(2);
-    private Solenoid catapultSolenoid2 = new Solenoid(3);
+    private DoubleSolenoid catapultSolenoid1 = new DoubleSolenoid(3,4);
+    private DoubleSolenoid catapultSolenoid2 = new DoubleSolenoid(4,5);
     private DoubleSolenoid gearShifter = new DoubleSolenoid(1,2);
     /*
      * RobotDrive controller
