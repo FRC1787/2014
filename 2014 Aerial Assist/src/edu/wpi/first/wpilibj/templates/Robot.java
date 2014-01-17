@@ -38,26 +38,27 @@ public class Robot extends SimpleRobot {
      */
     private Compressor compressor = new Compressor(1, 1);
     private Solenoid pickupSolenoid = new Solenoid(1);
-    private DoubleSolenoid catapultSolenoid1 = new DoubleSolenoid(3,4);
-    private DoubleSolenoid catapultSolenoid2 = new DoubleSolenoid(4,5);
-    private DoubleSolenoid gearShifter = new DoubleSolenoid(1,2);
+    private DoubleSolenoid catapultSolenoid1 = new DoubleSolenoid(3, 4);
+    private DoubleSolenoid catapultSolenoid2 = new DoubleSolenoid(4, 5);
+    private DoubleSolenoid gearShifter = new DoubleSolenoid(1, 2);
     /*
      * RobotDrive controller
      */
     private RobotDrive robotDrive;
-    
     /*
      * sensors
      * encoder, accelerometer, and gyro perameters not final
      */
-private Encoder leftEncoder = new Encoder(1,2);
-private Encoder rightEncoder = new Encoder(3,4);
-private Gyro gyro = new Gyro(1);
-private Accelerometer accelerometer = new Accelerometer(1);
+    private Encoder leftEncoder = new Encoder(1, 2);
+    private Encoder rightEncoder = new Encoder(3, 4);
+    private Gyro gyro = new Gyro(1);
+    private Accelerometer accelerometer = new Accelerometer(1);
+
     /**
      * This function is called once each time the robot enters autonomous mode.
      */
     public void autonomous() {
+        //driving
         try {
             leftMotor1 = new CANJaguar(2);
             leftMotor2 = new CANJaguar(3);
@@ -79,12 +80,55 @@ private Accelerometer accelerometer = new Accelerometer(1);
      */
     public void operatorControl() {
         compressor.start();
+        double shootRetractTime = 0.0;
+
+        double lastTime, timeDelta = 0.0;
+        double time = Timer.getFPGATimestamp();
         while (isOperatorControl() && isEnabled()) {
+            lastTime = time;
+            time = Timer.getFPGATimestamp();
+            timeDelta = time - lastTime;
+
             if (rightstick.getMagnitude() > leftstick.getMagnitude()) {
                 robotDrive.arcadeDrive(rightstick.getY() * 0.25, rightstick.getX() * 0.25, true);
             } else {
                 robotDrive.arcadeDrive(-leftstick.getY() * 0.25, leftstick.getX() * 0.25, true);
             }
+            //pickup
+            if (leftstick.getRawButton(3) || rightstick.getRawButton(3)) {
+                pickupMotor.set(1);
+            } else {
+                pickupMotor.set(0);
+            }
+            if (leftstick.getRawButton(2) || rightstick.getRawButton(2)) {
+                pickupSolenoid.set(true);
+            } else if (leftstick.getRawButton(6) || rightstick.getRawButton(6)) {
+                pickupSolenoid.set(false);
+            }
+        }
+        
+        //shooting
+        if (leftstick.getTrigger()
+                || rightstick.getTrigger()) {
+            catapultSolenoid1.set(DoubleSolenoid.Value.kForward);
+            catapultSolenoid2.set(DoubleSolenoid.Value.kReverse);
+            shootRetractTime = 2.0;
+        }
+        shootRetractTime -= timeDelta;
+        if (shootRetractTime
+                < 0.0) {
+            shootRetractTime = 0.0;
+            catapultSolenoid1.set(DoubleSolenoid.Value.kReverse);
+            catapultSolenoid2.set(DoubleSolenoid.Value.kForward);
+        }
+
+        //shifting
+        if (leftstick.getRawButton(
+                4) || rightstick.getRawButton(4)) {
+            gearShifter.set(DoubleSolenoid.Value.kForward);
+        } else if (leftstick.getRawButton(
+                5) || rightstick.getRawButton(5)) {
+            gearShifter.set(DoubleSolenoid.Value.kReverse);
         }
     }
 
