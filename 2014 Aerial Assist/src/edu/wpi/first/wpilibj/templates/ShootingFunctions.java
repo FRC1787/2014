@@ -5,9 +5,8 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Solenoid;
 
 /**
- *
  * @Jeremy Stark
- */
+ **/
 public class ShootingFunctions {
     
     //Pnumatics and Compressors

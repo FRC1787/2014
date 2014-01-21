@@ -46,6 +46,10 @@ public class Robot extends VisionRobot {
     //drive controller
     public PidDriveController pidDriveBase;
     
+    public void robotInit(){
+       System.out.println("robotInit i");
+    }
+    
     public Robot() {
         try {
             leftMotor1 = new CANJaguar(2);
@@ -65,7 +69,7 @@ public class Robot extends VisionRobot {
     }
     
     //autonomous Stuff
-    public boolean turnTowardsTarget() {
+    /*public boolean turnTowardsTarget() {
     VisionTarget target = getBestTarget(true, true);
     if (target == null) {
         System.out.println("no targets found");
@@ -80,13 +84,7 @@ public class Robot extends VisionRobot {
 
 
         return true;
-    }
-
-
-    //First called when the robot turns on.
-    public void robotInit(){
-       System.out.println("Robot is ready to fly");
-    }
+    }*/
     
     //Autonomous Code. This is run ONCE each time the code is initialized for 10 seconds.
     public void autonomous() {
@@ -139,7 +137,6 @@ public class Robot extends VisionRobot {
         }
         
         //All Shooting code is in ShootingFunctions class
-        
         
         //shifting
         if (leftstick.getRawButton(
