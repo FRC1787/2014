@@ -14,7 +14,6 @@ public class ShootingFunctions {
     public static Solenoid pickupSolenoid = new Solenoid(1);
     public static DoubleSolenoid catapultSolenoid1 = new DoubleSolenoid(3, 4);
     public static DoubleSolenoid catapultSolenoid2 = new DoubleSolenoid(4, 5);
-    public static DoubleSolenoid gearShifter = new DoubleSolenoid(1, 2); //Not in use right now, work on this
     
     public static void shootingPiston() {    
         if (Robot.leftstick.getTrigger()
@@ -31,4 +30,12 @@ public class ShootingFunctions {
             catapultSolenoid1.set(DoubleSolenoid.Value.kReverse);
             catapultSolenoid2.set(DoubleSolenoid.Value.kForward);
         }
+    
+    //Simple auton shooting code
+    public static void autonShooting() {
+        while (Robot.isOperatorControlled) {
+            catapultSolenoid1.set(DoubleSolenoid.Value.kForward);
+            catapultSolenoid2.set(DoubleSolenoid.Value.kForward);
+        }
+    }
 }

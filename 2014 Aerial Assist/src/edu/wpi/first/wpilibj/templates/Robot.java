@@ -78,33 +78,23 @@ public class Robot extends VisionRobot {
     
     //Autonomous Code. This is run ONCE each time the code is initialized for 10 seconds.
     public void autonomous() {
-        while (isAutonomous() && isEnabled()) {
-            
+        isOperatorControlled = false;
+        if (!isOperatorControlled && isEnabled) {
+            ShootingFunctions.autonShooting();
         } else {
             isOperatorControlled = true;
-            isEnabled = true;
         }
-        
     }
     
 
-    /**
-     * This function is called once each time the robot enters operator control.
-     */
+    //This function is called once the robot enters Operated Control mode.
     public void operatorControl() {
-        ShootingFunctions.compressor.start();
+        while (isOperatorControlled){
+            //Shooting function
+            ShootingFunctions.compressor.start();
 
-        DriveController.driveControls();
-        
-        //All Shooting code is in ShootingFunctions class
-        
-        //shifting
-        if (leftstick.getRawButton(
-                4) || rightstick.getRawButton(4)) {
-            ShootingFunctions.gearShifter.set(DoubleSolenoid.Value.kForward);
-        } else if (leftstick.getRawButton(
-                5) || rightstick.getRawButton(5)) {
-            ShootingFunctions.gearShifter.set(DoubleSolenoid.Value.kReverse);
+            //Driver Controls
+            DriveController.driveControls();
         }
     }
 
