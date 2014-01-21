@@ -7,7 +7,12 @@
 package edu.wpi.first.wpilibj.templates;
 
 import edu.wpi.first.wpilibj.*;
-import edu.wpi.first.wpilibj.can.CANTimeoutException;
+import edu.wpi.first.wpilibj.camera.*;
+import edu.wpi.first.wpilibj.can.*;
+import edu.wpi.first.wpilibj.image.CriteriaCollection;
+import edu.wpi.first.wpilibj.image.NIVision;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.Dashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -16,7 +21,7 @@ import edu.wpi.first.wpilibj.can.CANTimeoutException;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
-public class Robot extends SimpleRobot {
+public class Robot extends VisionRobot {
 
     //Jaguar Motor Controlers
     public static CANJaguar leftMotor1;
@@ -37,15 +42,11 @@ public class Robot extends SimpleRobot {
     private Encoder rightEncoder = new Encoder(3, 4);
     private Gyro gyro = new Gyro(1);
     private Accelerometer accelerometer = new Accelerometer(1);
-
-    //First called when the robot turns on.
-    public void robotInit(){
-       
-    }
     
-    //Autonomous Code. This is run ONCE each time the code is initialized for 10 seconds.
-    public void autonomous() {
-        //driving
+    //drive controller
+    public PidDriveController pidDriveBase;
+    
+    public Robot() {
         try {
             leftMotor1 = new CANJaguar(2);
             leftMotor2 = new CANJaguar(3);
@@ -55,14 +56,55 @@ public class Robot extends SimpleRobot {
 
             robotDrive = new RobotDrive(leftMotor1, leftMotor2, rightMotor1, rightMotor2);
             //robotDrive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true); //inverts motor direction
-           
+
             ShootingFunctions.shootingPiston();
             
         } catch (CANTimeoutException ex) {
             ex.printStackTrace();
         }
-
     }
+    
+    //autonomous Stuff
+    public boolean turnTowardsTarget() {
+    VisionTarget target = getBestTarget(true, true);
+    if (target == null) {
+        System.out.println("no targets found");
+        return false;
+        }
+
+        System.out.println(target.isHighGoal ? "high goal found" : "middle goal found");
+        System.out.println("distance to target: " + target.distance);
+
+        pidDriveBase.queueTurnAngle(target.angle, 5.0);
+        //      pidDriveBase.queueDriveDistance(target.distance - 180.0, 4.0);
+
+
+        return true;
+    }
+
+
+    //First called when the robot turns on.
+    public void robotInit(){
+       System.out.println("Robot is ready to fly");
+    }
+    
+    //Autonomous Code. This is run ONCE each time the code is initialized for 10 seconds.
+    public void autonomous() {
+        pidDriveBase.queueTurnAngle(180.0, 3.0);
+
+        while (isAutonomous() && isEnabled()) {
+            if (pidDriveBase.getControlState() == pidDriveBase.DRIVE) {
+                pidDriveBase.updateDriveDistance();
+            } else if (pidDriveBase.getControlState() == pidDriveBase.TURN) {
+                pidDriveBase.updateTurnAngle();
+            } else {
+                break;
+            }
+        }
+
+        pidDriveBase.removeWaypoint();
+    }
+    
 
     /**
      * This function is called once each time the robot enters operator control.
