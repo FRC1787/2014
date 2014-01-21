@@ -8,7 +8,6 @@ package edu.wpi.first.wpilibj.templates;
 
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.can.*;
-import edu.wpi.first.wpilibj.Dashboard;
 import edu.wpi.first.wpilibj.templates.vision.VisionRobot;
 
 //This is the main class for the entire Robot!
