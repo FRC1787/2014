@@ -7,20 +7,11 @@
 package edu.wpi.first.wpilibj.templates;
 
 import edu.wpi.first.wpilibj.*;
-import edu.wpi.first.wpilibj.camera.*;
 import edu.wpi.first.wpilibj.can.*;
-import edu.wpi.first.wpilibj.image.CriteriaCollection;
-import edu.wpi.first.wpilibj.image.NIVision;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Dashboard;
+import edu.wpi.first.wpilibj.templates.vision.VisionRobot;
 
-/**
- * The VM is configured to automatically run this class, and to call the
- * functions corresponding to each mode, as described in the SimpleRobot
- * documentation. If you change the name of this class or the package after
- * creating this project, you must also update the manifest file in the resource
- * directory.
- */
+//This is the main class for the entire Robot!
 public class Robot extends VisionRobot {
 
     //Jaguar Motor Controlers
@@ -35,7 +26,7 @@ public class Robot extends VisionRobot {
     public static Joystick rightstick = new Joystick(2);
     
     //Robot drive controller
-    private RobotDrive robotDrive;
+    public static RobotDrive robotDrive;
    
     //sensors, encoder, accelerometer, and gyro perameters not final
     private Encoder leftEncoder = new Encoder(1, 2);
@@ -43,11 +34,11 @@ public class Robot extends VisionRobot {
     private Gyro gyro = new Gyro(1);
     private Accelerometer accelerometer = new Accelerometer(1);
     
-    //drive controller
-    public PidDriveController pidDriveBase;
-    
+    public static boolean isOperatorControlled;
+    public static boolean isEnabled;
+   
     public void robotInit(){
-       System.out.println("robotInit i");
+       System.out.println("robotInit has been called!");
     }
     
     public Robot() {
@@ -59,12 +50,11 @@ public class Robot extends VisionRobot {
             pickupMotor = new CANJaguar(6);
 
             robotDrive = new RobotDrive(leftMotor1, leftMotor2, rightMotor1, rightMotor2);
-            //robotDrive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true); //inverts motor direction
-
+            
             ShootingFunctions.shootingPiston();
             
-        } catch (CANTimeoutException ex) {
-            ex.printStackTrace();
+        } catch (CANTimeoutException e) {
+            e.printStackTrace();
         }
     }
     
@@ -88,19 +78,13 @@ public class Robot extends VisionRobot {
     
     //Autonomous Code. This is run ONCE each time the code is initialized for 10 seconds.
     public void autonomous() {
-        pidDriveBase.queueTurnAngle(180.0, 3.0);
-
         while (isAutonomous() && isEnabled()) {
-            if (pidDriveBase.getControlState() == pidDriveBase.DRIVE) {
-                pidDriveBase.updateDriveDistance();
-            } else if (pidDriveBase.getControlState() == pidDriveBase.TURN) {
-                pidDriveBase.updateTurnAngle();
-            } else {
-                break;
-            }
+            
+        } else {
+            isOperatorControlled = true;
+            isEnabled = true;
         }
-
-        pidDriveBase.removeWaypoint();
+        
     }
     
 
@@ -109,32 +93,8 @@ public class Robot extends VisionRobot {
      */
     public void operatorControl() {
         ShootingFunctions.compressor.start();
-        double shootRetractTime = 0.0;
 
-        double lastTime, timeDelta = 0.0;
-        double time = Timer.getFPGATimestamp();
-        while (isOperatorControl() && isEnabled()) {
-            lastTime = time;
-            time = Timer.getFPGATimestamp();
-            timeDelta = time - lastTime;
-
-            if (rightstick.getMagnitude() > leftstick.getMagnitude()) {
-                robotDrive.arcadeDrive(rightstick.getY() * 0.25, rightstick.getX() * 0.25, true);
-            } else {
-                robotDrive.arcadeDrive(-leftstick.getY() * 0.25, leftstick.getX() * 0.25, true);
-            }
-            //pickup
-            if (leftstick.getRawButton(3) || rightstick.getRawButton(3)) {
-                pickupMotor.set(1);
-            } else {
-                pickupMotor.set(0);
-            }
-            if (leftstick.getRawButton(2) || rightstick.getRawButton(2)) {
-                ShootingFunctions.pickupSolenoid.set(true);
-            } else if (leftstick.getRawButton(6) || rightstick.getRawButton(6)) {
-                ShootingFunctions.pickupSolenoid.set(false);
-            }
-        }
+        DriveController.driveControls();
         
         //All Shooting code is in ShootingFunctions class
         
@@ -148,9 +108,8 @@ public class Robot extends VisionRobot {
         }
     }
 
-    /**
-     * This function is called once each time the robot enters test mode.
-     */
+    //This function is called each time the robot enters test mode.
     public void test() {
+        System.out.println("The Robot has entered test mode!");
     }
 }

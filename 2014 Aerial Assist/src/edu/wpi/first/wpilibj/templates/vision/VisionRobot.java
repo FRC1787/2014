@@ -21,7 +21,6 @@ import edu.wpi.first.wpilibj.image.RGBImage;
  */
 public class VisionRobot extends SimpleRobot {
 
-    Scores scores = new Scores(); //Please figure out your code dale, explain! -Jeremy
     
     public final int XMAXSIZE = 24;
     public final int XMINSIZE = 24;
@@ -111,7 +110,7 @@ public class VisionRobot extends SimpleRobot {
      *
      * @return True if the particle meets all limits, false otherwise
      */
-    boolean scoreCompare(Scores scores, boolean outer) {
+   /* boolean scoreCompare(Scores scores, boolean outer) {
         boolean isTarget = true;
 
         isTarget &= scores.rectangularity > RECTANGULARITY_LIMIT;
@@ -124,7 +123,7 @@ public class VisionRobot extends SimpleRobot {
         isTarget &= scores.yEdge > Y_EDGE_LIMIT;
 
         return isTarget;
-    }
+    } */
 
     /**
      * Computes a score (0-100) estimating how rectangular the particle is by
@@ -217,8 +216,8 @@ public class VisionRobot extends SimpleRobot {
             filteredImage.write("/filteredImage.bmp");
 
             //iterate through each particle and score to see if it is a target
-            Scores scores[] = new Scores[filteredImage.getNumberParticles()];
-            for (int i = 0; i < scores.length; i++) {
+            //Scores scores[] = new Scores[filteredImage.getNumberParticles()];
+            /* for (int i = 0; i < scores.length; i++) {
                 ParticleAnalysisReport report = filteredImage.getParticleAnalysisReport(i);
                 scores[i] = new Scores();
 
@@ -255,7 +254,7 @@ public class VisionRobot extends SimpleRobot {
                 //}
                 System.out.println("rect: " + scores[i].rectangularity + " ARinner: " + scores[i].aspectRatioInner);
                 System.out.println("ARouter: " + scores[i].aspectRatioOuter + " xEdge: " + scores[i].xEdge + " yEdge: " + scores[i].yEdge);
-            }
+            } */
 
             /**
              * all images in Java must be freed after they are used since they
