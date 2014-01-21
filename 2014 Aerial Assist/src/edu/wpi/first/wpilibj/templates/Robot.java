@@ -18,45 +18,32 @@ import edu.wpi.first.wpilibj.can.CANTimeoutException;
  */
 public class Robot extends SimpleRobot {
 
-    /*
-     * Jaquar Motor Controllers
-     */
-    private CANJaguar leftMotor1;
-    private CANJaguar leftMotor2;
-    private CANJaguar rightMotor1;
-    private CANJaguar rightMotor2;
-    private CANJaguar pickupMotor;
+    //Jaguar Motor Controlers
+    public static CANJaguar leftMotor1;
+    public static CANJaguar leftMotor2;
+    public static CANJaguar rightMotor1;
+    public static CANJaguar rightMotor2;
+    public static CANJaguar pickupMotor;
 
-    /*
-     * joysticks
-     */
-    private Joystick leftstick = new Joystick(1);
-    private Joystick rightstick = new Joystick(2);
-    /*
-     * pneumatics
-     * comressor and solenoid parameters are NOT final
-     */
-    private Compressor compressor = new Compressor(1, 1);
-    private Solenoid pickupSolenoid = new Solenoid(1);
-    private DoubleSolenoid catapultSolenoid1 = new DoubleSolenoid(3, 4);
-    private DoubleSolenoid catapultSolenoid2 = new DoubleSolenoid(4, 5);
-    private DoubleSolenoid gearShifter = new DoubleSolenoid(1, 2);
-    /*
-     * RobotDrive controller
-     */
+    //Joysticks
+    public static Joystick leftstick = new Joystick(1);
+    public static Joystick rightstick = new Joystick(2);
+    
+    //Robot drive controller
     private RobotDrive robotDrive;
-    /*
-     * sensors
-     * encoder, accelerometer, and gyro perameters not final
-     */
+   
+    //sensors, encoder, accelerometer, and gyro perameters not final
     private Encoder leftEncoder = new Encoder(1, 2);
     private Encoder rightEncoder = new Encoder(3, 4);
     private Gyro gyro = new Gyro(1);
     private Accelerometer accelerometer = new Accelerometer(1);
 
-    /**
-     * This function is called once each time the robot enters autonomous mode.
-     */
+    //First called when the robot turns on.
+    public void robotInit(){
+       
+    }
+    
+    //Autonomous Code. This is run ONCE each time the code is initialized for 10 seconds.
     public void autonomous() {
         //driving
         try {
@@ -68,7 +55,9 @@ public class Robot extends SimpleRobot {
 
             robotDrive = new RobotDrive(leftMotor1, leftMotor2, rightMotor1, rightMotor2);
             //robotDrive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true); //inverts motor direction
-
+           
+            ShootingFunctions.shootingPiston();
+            
         } catch (CANTimeoutException ex) {
             ex.printStackTrace();
         }
@@ -79,7 +68,7 @@ public class Robot extends SimpleRobot {
      * This function is called once each time the robot enters operator control.
      */
     public void operatorControl() {
-        compressor.start();
+        ShootingFunctions.compressor.start();
         double shootRetractTime = 0.0;
 
         double lastTime, timeDelta = 0.0;
@@ -101,34 +90,22 @@ public class Robot extends SimpleRobot {
                 pickupMotor.set(0);
             }
             if (leftstick.getRawButton(2) || rightstick.getRawButton(2)) {
-                pickupSolenoid.set(true);
+                ShootingFunctions.pickupSolenoid.set(true);
             } else if (leftstick.getRawButton(6) || rightstick.getRawButton(6)) {
-                pickupSolenoid.set(false);
+                ShootingFunctions.pickupSolenoid.set(false);
             }
         }
         
-        //shooting
-        if (leftstick.getTrigger()
-                || rightstick.getTrigger()) {
-            catapultSolenoid1.set(DoubleSolenoid.Value.kForward);
-            catapultSolenoid2.set(DoubleSolenoid.Value.kReverse);
-            shootRetractTime = 2.0;
-        }
-        shootRetractTime -= timeDelta;
-        if (shootRetractTime
-                < 0.0) {
-            shootRetractTime = 0.0;
-            catapultSolenoid1.set(DoubleSolenoid.Value.kReverse);
-            catapultSolenoid2.set(DoubleSolenoid.Value.kForward);
-        }
-
+        //All Shooting code is in ShootingFunctions class
+        
+        
         //shifting
         if (leftstick.getRawButton(
                 4) || rightstick.getRawButton(4)) {
-            gearShifter.set(DoubleSolenoid.Value.kForward);
+            ShootingFunctions.gearShifter.set(DoubleSolenoid.Value.kForward);
         } else if (leftstick.getRawButton(
                 5) || rightstick.getRawButton(5)) {
-            gearShifter.set(DoubleSolenoid.Value.kReverse);
+            ShootingFunctions.gearShifter.set(DoubleSolenoid.Value.kReverse);
         }
     }
 
