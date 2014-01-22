@@ -13,87 +13,68 @@ import edu.wpi.first.wpilibj.templates.vision.VisionRobot;
 //This is the main class for the entire Robot!
 public class Robot extends VisionRobot {
 
-    //Jaguar Motor Controlers
-    public static CANJaguar leftMotor1;
-    public static CANJaguar leftMotor2;
-    public static CANJaguar rightMotor1;
-    public static CANJaguar rightMotor2;
-    public static CANJaguar pickupMotor;
-
-    //Joysticks
-    public static Joystick leftstick = new Joystick(1);
-    public static Joystick rightstick = new Joystick(2);
-    
-    //Robot drive controller
-    public static RobotDrive robotDrive;
-   
-    //sensors, encoder, accelerometer, and gyro perameters not final
-    private Encoder leftEncoder = new Encoder(1, 2);
-    private Encoder rightEncoder = new Encoder(3, 4);
-    private Gyro gyro = new Gyro(1);
-    private Accelerometer accelerometer = new Accelerometer(1);
-    
-    public static boolean isOperatorControlled;
-    public static boolean isEnabled;
-   
-    public void robotInit(){
-       System.out.println("robotInit has been called!");
+    public void robotInit() {
+        System.out.println("robotInit has been called!");
+        
+        //Not sure what we want here, testing needed.
+        Variables.shifterPosition = false;
     }
-    
+
     public Robot() {
         try {
-            leftMotor1 = new CANJaguar(2);
-            leftMotor2 = new CANJaguar(3);
-            rightMotor1 = new CANJaguar(4);
-            rightMotor2 = new CANJaguar(5);
-            pickupMotor = new CANJaguar(6);
+            Variables.leftMotor1 = new CANJaguar(2);
+            Variables.leftMotor2 = new CANJaguar(3);
+            Variables.rightMotor1 = new CANJaguar(4);
+            Variables.rightMotor2 = new CANJaguar(5);
+            Variables.pickupMotor = new CANJaguar(6);
 
-            robotDrive = new RobotDrive(leftMotor1, leftMotor2, rightMotor1, rightMotor2);
-            
+            Variables.robotDrive = new RobotDrive(Variables.leftMotor1, Variables.leftMotor2, Variables.rightMotor1, Variables.rightMotor2);
+
             ShootingFunctions.shootingPiston();
-            
+
         } catch (CANTimeoutException e) {
             e.printStackTrace();
         }
     }
-    
+
     //autonomous Stuff
     /*public boolean turnTowardsTarget() {
-    VisionTarget target = getBestTarget(true, true);
-    if (target == null) {
-        System.out.println("no targets found");
-        return false;
-        }
+     VisionTarget target = getBestTarget(true, true);
+     if (target == null) {
+     System.out.println("no targets found");
+     return false;
+     }
 
-        System.out.println(target.isHighGoal ? "high goal found" : "middle goal found");
-        System.out.println("distance to target: " + target.distance);
+     System.out.println(target.isHighGoal ? "high goal found" : "middle goal found");
+     System.out.println("distance to target: " + target.distance);
 
-        pidDriveBase.queueTurnAngle(target.angle, 5.0);
-        //      pidDriveBase.queueDriveDistance(target.distance - 180.0, 4.0);
+     pidDriveBase.queueTurnAngle(target.angle, 5.0);
+     //      pidDriveBase.queueDriveDistance(target.distance - 180.0, 4.0);
 
 
-        return true;
-    }*/
+     return true;
+     }*/
     
     //Autonomous Code. This is run ONCE each time the code is initialized for 10 seconds.
     public void autonomous() {
-        isOperatorControlled = false;
-        if (!isOperatorControlled && isEnabled) {
-            ShootingFunctions.autonShooting();
+        Variables.isOperatorControlled = false;
+        if (!Variables.isOperatorControlled && Variables.isEnabled) {
+            Autonomous.autoShoot();
+            Autonomous.autoDrive();
         } else {
-            isOperatorControlled = true;
+            Variables.isOperatorControlled = true;
         }
     }
-    
 
     //This function is called once the robot enters Operated Control mode.
     public void operatorControl() {
-        while (isOperatorControlled){
+        while (Variables.isOperatorControlled) {
             //Shooting function
-            ShootingFunctions.compressor.start();
+            Variables.compressor.start();
 
             //Driver Controls
             DriveController.driveControls();
+            DriveController.shiftingControls();
         }
     }
 
