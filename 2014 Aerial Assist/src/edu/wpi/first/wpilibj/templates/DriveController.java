@@ -1,9 +1,6 @@
 package edu.wpi.first.wpilibj.templates;
 
 import edu.wpi.first.wpilibj.*;
-/**
- * @Jeremy Stark
- **/
 public class DriveController {
     
    public static void driveControls() {
@@ -34,7 +31,7 @@ public class DriveController {
    }
    
    public static void shiftingControls() {
-         //Shifting function
+         //Shifting functionl.
             if (Variables.leftStick.getRawButton(4) || Variables.rightStick.getRawButton(4) || !Variables.shifterPosition) {
                 Variables.gearShifter.set(DoubleSolenoid.Value.kForward);
                 Variables.shifterPosition = false;

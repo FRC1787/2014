@@ -1,9 +1,7 @@
 package edu.wpi.first.wpilibj.templates;
 
 import edu.wpi.first.wpilibj.*;
-/**
- * @Jeremy Stark
- **/
+
 public class Variables {
    
      //Jaguar Motor Controlers

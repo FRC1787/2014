@@ -14,9 +14,8 @@ import edu.wpi.first.wpilibj.templates.vision.VisionRobot;
 public class Robot extends VisionRobot {
 
     public void robotInit() {
-        System.out.println("robotInit has been called!");
+        System.out.println("The Robot has entered robotInit!");
         
-        //Not sure what we want here, testing needed.
         Variables.shifterPosition = false;
     }
 
@@ -36,29 +35,13 @@ public class Robot extends VisionRobot {
             e.printStackTrace();
         }
     }
-
-    //autonomous Stuff
-    /*public boolean turnTowardsTarget() {
-     VisionTarget target = getBestTarget(true, true);
-     if (target == null) {
-     System.out.println("no targets found");
-     return false;
-     }
-
-     System.out.println(target.isHighGoal ? "high goal found" : "middle goal found");
-     System.out.println("distance to target: " + target.distance);
-
-     pidDriveBase.queueTurnAngle(target.angle, 5.0);
-     //      pidDriveBase.queueDriveDistance(target.distance - 180.0, 4.0);
-
-
-     return true;
-     }*/
     
     //Autonomous Code. This is run ONCE each time the code is initialized for 10 seconds.
     public void autonomous() {
+        System.out.println("The Robot has entered autonomous");
         Variables.isOperatorControlled = false;
         if (!Variables.isOperatorControlled && Variables.isEnabled) {
+            //Place functions from Autonomous.java here - Dale 
             Autonomous.autoShoot();
             Autonomous.autoDrive();
         } else {
@@ -68,6 +51,7 @@ public class Robot extends VisionRobot {
 
     //This function is called once the robot enters Operated Control mode.
     public void operatorControl() {
+        System.out.println("The Robot has entered operatorControl");
         while (Variables.isOperatorControlled) {
             //Shooting function
             Variables.compressor.start();
@@ -80,6 +64,6 @@ public class Robot extends VisionRobot {
 
     //This function is called each time the robot enters test mode.
     public void test() {
-        System.out.println("The Robot has entered test mode!");
+        System.out.println("The Robot has entered test mode");
     }
 }
