@@ -8,7 +8,7 @@ public class ShootingFunctions {
         if (Variables.leftStick.getTrigger()
                 || Variables.rightStick.getTrigger()) {
             Variables.catapultSolenoid1.set(DoubleSolenoid.Value.kForward);
-            Variables.catapultSolenoid2.set(DoubleSolenoid.Value.kReverse);
+            //Variables.catapultSolenoid2.set(DoubleSolenoid.Value.kReverse);
             /*Robot.shootRetractTime = 2.0;
              * This is the amount of time it takes for the piston to retract.*/
         }
@@ -17,6 +17,6 @@ public class ShootingFunctions {
                 < 0.0) {
             shootRetractTime = 0.0;*/ //Still needs testing before added, keep though
             Variables.catapultSolenoid1.set(DoubleSolenoid.Value.kReverse);
-            Variables.catapultSolenoid2.set(DoubleSolenoid.Value.kForward);
+            //Variables.catapultSolenoid2.set(DoubleSolenoid.Value.kForward);
         }
 }

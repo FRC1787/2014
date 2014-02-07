@@ -34,7 +34,7 @@ public class Autonomous {
     public static void autoShoot() {
         while (!Variables.isOperatorControlled) {
             Variables.catapultSolenoid1.set(DoubleSolenoid.Value.kForward);
-            Variables.catapultSolenoid2.set(DoubleSolenoid.Value.kForward);
+            //Variables.catapultSolenoid2.set(DoubleSolenoid.Value.kForward);
             
             Variables.robotDrive.arcadeDrive(Variables.rightStick.getY() * 0.25, Variables.rightStick.getX() * 0.25, true);
         }

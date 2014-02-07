@@ -39,20 +39,19 @@ public class Robot extends VisionRobot {
     //Autonomous Code. This is run ONCE each time the code is initialized for 10 seconds.
     public void autonomous() {
         System.out.println("The Robot has entered autonomous");
-        Variables.isOperatorControlled = false;
-        if (!Variables.isOperatorControlled && Variables.isEnabled) {
+        while (isAutonomous() && isEnabled()) {
             //Place functions from Autonomous.java here - Dale 
             Autonomous.autoShoot();
             Autonomous.autoDrive();
-        } else {
-            Variables.isOperatorControlled = true;
+        
+        TestingFunctions.buttonTest();
         }
     }
 
     //This function is called once the robot enters Operated Control mode.
     public void operatorControl() {
         System.out.println("The Robot has entered operatorControl");
-        while (Variables.isOperatorControlled) {
+        while (isOperatorControl() && isEnabled()) {
             //Shooting function
             Variables.compressor.start();
 
@@ -65,5 +64,7 @@ public class Robot extends VisionRobot {
     //This function is called each time the robot enters test mode.
     public void test() {
         System.out.println("The Robot has entered test mode");
+        
+        TestingFunctions.buttonTest();
     }
 }

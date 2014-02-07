@@ -6,7 +6,6 @@ public class DriveController {
    public static void driveControls() {
         double lastTime, timeDelta = 0.0;
         double time = Timer.getFPGATimestamp();
-        while (Variables.isOperatorControlled && Variables.isEnabled) {
             lastTime = time;
             time = Timer.getFPGATimestamp();
             timeDelta = time - lastTime;
@@ -28,7 +27,7 @@ public class DriveController {
                 Variables.pickupSolenoid.set(false);
             }
         }
-   }
+   
    
    public static void shiftingControls() {
          //Shifting functionl.
