@@ -23,8 +23,8 @@ public class Variables {
     public static Encoder rightEncoder = new Encoder(3, 4);
     public static Gyro gyro = new Gyro(1);
     public static Accelerometer accelerometer = new Accelerometer(1);
-    public static boolean isOperatorControlled;
-    public static boolean isEnabled;
+    //public static boolean isOperatorControlled; // This is NOT needed, and overcomplicates things
+    //public static boolean isEnabled; // This is NOT needed, and overcomplicates things
     
     //Pnumatics and Compressors
     public static DoubleSolenoid gearShifter = new DoubleSolenoid(1, 2);
