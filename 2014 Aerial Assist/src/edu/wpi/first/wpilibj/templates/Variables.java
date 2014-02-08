@@ -19,16 +19,16 @@ public class Variables {
     public static RobotDrive robotDrive;
     
     //sensors, encoder, accelerometer, and gyro perameters not final
-    public static Encoder leftEncoder = new Encoder(1, 2);
-    public static Encoder rightEncoder = new Encoder(3, 4);
+    //public static Encoder leftEncoder = new Encoder(1, 2);
+    //public static Encoder rightEncoder = new Encoder(3, 4);
     public static Gyro gyro = new Gyro(1);
-    public static Accelerometer accelerometer = new Accelerometer(1);
+    //public static Accelerometer accelerometer = new Accelerometer(1);
     //public static boolean isOperatorControlled; // This is NOT needed, and overcomplicates things
     //public static boolean isEnabled; // This is NOT needed, and overcomplicates things
     
     //Pnumatics and Compressors
     public static DoubleSolenoid gearShifter = new DoubleSolenoid(1, 2);
-    public static Compressor compressor = new Compressor(1, 1);
+    //public static Compressor compressor = new Compressor(1, 1);
     public static Solenoid pickupSolenoid = new Solenoid(5);
     public static DoubleSolenoid catapultSolenoid1 = new DoubleSolenoid(3, 4);
    // public static DoubleSolenoid catapultSolenoid2 = new DoubleSolenoid(4, 5);  --Currently not being used.
@@ -36,6 +36,6 @@ public class Variables {
     //shifter position. false = foreward, true = reverse.
     public static boolean shifterPosition;
     
-    //Public drive speed for robot. Modifiable from the driver station.
-    public static double driveSpeed = 0.25;
+    //Public drive speed for robot. Modifiable from the driver station. <-- soon
+    public static double driveSpeed = 0.15;
 }

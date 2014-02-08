@@ -16,10 +16,6 @@ public class Robot extends VisionRobot {
     public void robotInit() {
         System.out.println("The Robot has entered robotInit!");
         
-        Variables.shifterPosition = false;
-    }
-
-    public Robot() {
         try {
             Variables.leftMotor1 = new CANJaguar(2);
             Variables.leftMotor2 = new CANJaguar(3);
@@ -28,23 +24,36 @@ public class Robot extends VisionRobot {
             Variables.pickupMotor = new CANJaguar(6);
 
             Variables.robotDrive = new RobotDrive(Variables.leftMotor1, Variables.leftMotor2, Variables.rightMotor1, Variables.rightMotor2);
-
+            
+            
+            
             ShootingFunctions.shootingPiston();
 
+            if (false)
+                throw new CANTimeoutException();
+            
         } catch (CANTimeoutException e) {
             e.printStackTrace();
         }
+        
+        Variables.shifterPosition = false;
+    }
+
+    public Robot() {
+        
     }
     
     //Autonomous Code. This is run ONCE each time the code is initialized for 10 seconds.
     public void autonomous() {
         System.out.println("The Robot has entered autonomous");
         while (isAutonomous() && isEnabled()) {
-            //Place functions from Autonomous.java here - Dale 
             Autonomous.autoShoot();
-            Autonomous.autoDrive();
         
         TestingFunctions.buttonTest();
+        }
+        
+        if (isAutonomous() && isEnabled()) {
+            Autonomous.autoShoot();
         }
     }
 
@@ -53,8 +62,10 @@ public class Robot extends VisionRobot {
         System.out.println("The Robot has entered operatorControl");
         while (isOperatorControl() && isEnabled()) {
             //Shooting function
-            Variables.compressor.start();
+            //Variables.compressor.start();
 
+            Variables.robotDrive.arcadeDrive(Variables.rightStick);
+            
             //Driver Controls
             DriveController.driveControls();
             DriveController.shiftingControls();

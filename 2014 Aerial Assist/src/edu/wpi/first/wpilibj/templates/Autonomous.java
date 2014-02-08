@@ -35,6 +35,5 @@ public class Autonomous {
             //Variables.catapultSolenoid2.set(DoubleSolenoid.Value.kForward);
             
             Variables.robotDrive.arcadeDrive(Variables.rightStick.getY() * 0.25, Variables.rightStick.getX() * 0.25, true);
-    }
-   
+        }
 }
