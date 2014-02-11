@@ -27,8 +27,6 @@ public class Robot extends VisionRobot {
             //Robot Drive called
             ShootingFunctions.shootingPiston();
             //Piston shooting function called
-            if (false)
-                throw new CANTimeoutException();
             
         } catch (CANTimeoutException e) {
             e.printStackTrace();
@@ -47,8 +45,8 @@ public class Robot extends VisionRobot {
     public void autonomous() {
         System.out.println("The Robot has entered autonomous");
         
-        Autonomous.autoDrive();
-        Autonomous.autoShoot();
+        Autonomous.autoDrive(); //Runs the Autonomous drive function
+        Autonomous.autoShoot(); //Runs the Autonomous shoot function
     }
 
     //This function is called once the robot enters Operated Control mode.
@@ -61,8 +59,13 @@ public class Robot extends VisionRobot {
             Variables.robotDrive.arcadeDrive(Variables.rightStick);
             
             //Driver Controls
-            DriveController.driveControls();
-            DriveController.shiftingControls();
+            DriveController.driveControls(); //This calls the Driver Controlls and let the operator drive
+            try {
+                DriveController.loaderControls(); //This calls the Loading controls and calls to run the load function
+            } catch (CANTimeoutException ex) {
+                ex.printStackTrace();
+            }
+            DriveController.shiftingControls(); //Calls the shifting function from the DriveController class
         }
     }
 
@@ -70,6 +73,6 @@ public class Robot extends VisionRobot {
     public void test() {
         System.out.println("The Robot has entered test mode");
         
-        TestingFunctions.buttonTest();
+        TestingFunctions.buttonTest(); //This just runs the button test function in the TestinFuntions class
     }
 }

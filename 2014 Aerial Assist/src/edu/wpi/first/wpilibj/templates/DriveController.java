@@ -16,17 +16,6 @@ public class DriveController {
             } else {
                 Variables.robotDrive.arcadeDrive(-Variables.leftStick.getY() * Variables.driveSpeed, Variables.leftStick.getX() * Variables.driveSpeed, true);
             }
-            //pickup
-            if (Variables.leftStick.getRawButton(3) || Variables.rightStick.getRawButton(3)) {
-                Variables.pickupMotor.set(1);
-            } else {
-                Variables.pickupMotor.set(0);
-            }
-            if (Variables.leftStick.getRawButton(2) || Variables.rightStick.getRawButton(2)) {
-                Variables.pickupSolenoid.set(true);
-            } else if (Variables.leftStick.getRawButton(6) || Variables.rightStick.getRawButton(6)) {
-                Variables.pickupSolenoid.set(false);
-            }
         }
    
    
@@ -44,9 +33,9 @@ public class DriveController {
    
    public static void loaderControls() throws CANTimeoutException {
        if (Variables.leftStick.getRawButton(5)){
-           Variables.pickupMotor.getX();
+           Variables.robotLoad.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
        }
-       
+       //This is the loading function. Right now I'm working on it, so it may not work -Jeremy
        
    }
 }
