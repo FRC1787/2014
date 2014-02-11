@@ -1,6 +1,7 @@
 package edu.wpi.first.wpilibj.templates;
 
 import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.can.CANTimeoutException;
 public class DriveController {
     
    public static void driveControls() {
@@ -9,7 +10,7 @@ public class DriveController {
             lastTime = time;
             time = Timer.getFPGATimestamp();
             timeDelta = time - lastTime;
-
+            
             if (Variables.rightStick.getMagnitude() > Variables.leftStick.getMagnitude()) {
                 Variables.robotDrive.arcadeDrive(Variables.rightStick.getY() * Variables.driveSpeed, Variables.rightStick.getX() * Variables.driveSpeed, true);
             } else {
@@ -40,4 +41,12 @@ public class DriveController {
                 Variables.shifterPosition = true;
             }
     }
+   
+   public static void loaderControls() throws CANTimeoutException {
+       if (Variables.leftStick.getRawButton(5)){
+           Variables.pickupMotor.getX();
+       }
+       
+       
+   }
 }

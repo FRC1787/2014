@@ -24,16 +24,14 @@ public class Autonomous {
      }*/
     
     public static void autoDrive() {
-        
-            double angle = Variables.gyro.getAngle();
-            Variables.robotDrive.arcadeDrive(-1.0, -angle * Variables.driveSpeed);
-            Timer.delay(0.1);
+        Variables.robotDrive.setSafetyEnabled(false);
+        Variables.robotDrive.drive(-0.5, 0.0);
+        Timer.delay(2.0);
+        Variables.robotDrive.drive(0.0, 0.0);
     }
     
     public static void autoShoot() {
             Variables.catapultSolenoid1.set(DoubleSolenoid.Value.kForward);
             //Variables.catapultSolenoid2.set(DoubleSolenoid.Value.kForward);
-            
-            Variables.robotDrive.arcadeDrive(Variables.rightStick.getY() * 0.25, Variables.rightStick.getX() * 0.25, true);
         }
 }

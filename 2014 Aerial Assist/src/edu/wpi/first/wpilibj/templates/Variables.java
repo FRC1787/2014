@@ -18,6 +18,9 @@ public class Variables {
     //Robot drive controller
     public static RobotDrive robotDrive;
     
+    //Robot loader controller
+    public static RobotDrive robotLoad;
+    
     //sensors, encoder, accelerometer, and gyro perameters not final
     //public static Encoder leftEncoder = new Encoder(1, 2);
     //public static Encoder rightEncoder = new Encoder(3, 4);
@@ -28,7 +31,7 @@ public class Variables {
     
     //Pnumatics and Compressors
     public static DoubleSolenoid gearShifter = new DoubleSolenoid(1, 2);
-    //public static Compressor compressor = new Compressor(1, 1);
+    public static Compressor compressor = new Compressor(2, 2);
     public static Solenoid pickupSolenoid = new Solenoid(5);
     public static DoubleSolenoid catapultSolenoid1 = new DoubleSolenoid(3, 4);
    // public static DoubleSolenoid catapultSolenoid2 = new DoubleSolenoid(4, 5);  --Currently not being used.
@@ -37,5 +40,7 @@ public class Variables {
     public static boolean shifterPosition;
     
     //Public drive speed for robot. Modifiable from the driver station. <-- soon
-    public static double driveSpeed = 0.15;
+    public static double driveSpeed = 1;
+    
+    public static double loaderSpeed = 0.1;
 }

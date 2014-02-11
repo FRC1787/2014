@@ -6,9 +6,7 @@ public class TestingFunctions {
     
     public static void buttonTest() {
         boolean testDrive;
-        testDrive = Variables.rightStick.getTrigger();
-        
-        Variables.robotDrive.drive(-0.5, 0);
+        testDrive = Variables.rightStick.getButton(Joystick.ButtonType.kTrigger);
     }
     
 }

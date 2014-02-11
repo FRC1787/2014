@@ -22,21 +22,21 @@ public class Robot extends VisionRobot {
             Variables.rightMotor1 = new CANJaguar(4);
             Variables.rightMotor2 = new CANJaguar(5);
             Variables.pickupMotor = new CANJaguar(6);
-
-            Variables.robotDrive = new RobotDrive(Variables.leftMotor1, Variables.leftMotor2, Variables.rightMotor1, Variables.rightMotor2);
-            
-            
-            
+            //Motors set up
+            Variables.robotDrive = new RobotDrive(Variables.leftMotor1, Variables.leftMotor2, Variables.rightMotor1, Variables.rightMotor2);            
+            //Robot Drive called
             ShootingFunctions.shootingPiston();
-
+            //Piston shooting function called
             if (false)
                 throw new CANTimeoutException();
             
         } catch (CANTimeoutException e) {
             e.printStackTrace();
-        }
-        
+        }        
         Variables.shifterPosition = false;
+        //Shifter position set to false
+        Variables.compressor.start();
+        //Compressor started!
     }
 
     public Robot() {
@@ -46,15 +46,9 @@ public class Robot extends VisionRobot {
     //Autonomous Code. This is run ONCE each time the code is initialized for 10 seconds.
     public void autonomous() {
         System.out.println("The Robot has entered autonomous");
-        while (isAutonomous() && isEnabled()) {
-            Autonomous.autoShoot();
         
-        TestingFunctions.buttonTest();
-        }
-        
-        if (isAutonomous() && isEnabled()) {
-            Autonomous.autoShoot();
-        }
+        Autonomous.autoDrive();
+        Autonomous.autoShoot();
     }
 
     //This function is called once the robot enters Operated Control mode.
@@ -62,8 +56,8 @@ public class Robot extends VisionRobot {
         System.out.println("The Robot has entered operatorControl");
         while (isOperatorControl() && isEnabled()) {
             //Shooting function
-            //Variables.compressor.start();
-
+            
+            //Driving Controlls
             Variables.robotDrive.arcadeDrive(Variables.rightStick);
             
             //Driver Controls
