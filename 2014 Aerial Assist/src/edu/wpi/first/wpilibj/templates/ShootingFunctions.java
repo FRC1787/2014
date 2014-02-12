@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.*;
 
 public class ShootingFunctions {
     
+    //This is the shooting funcito, when the trigger is pressed, the solenoid for the catapult is fired.
     public static void shootingPiston() {    
         if (Variables.leftStick.getTrigger()
                 || Variables.rightStick.getTrigger()) {

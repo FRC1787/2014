@@ -10,7 +10,7 @@ public class DriveController {
             lastTime = time;
             time = Timer.getFPGATimestamp();
             timeDelta = time - lastTime;
-            
+            //Pretty self explanitory....the driving controls...
             if (Variables.rightStick.getMagnitude() > Variables.leftStick.getMagnitude()) {
                 Variables.robotDrive.arcadeDrive(Variables.rightStick.getY() * Variables.driveSpeed, Variables.rightStick.getX() * Variables.driveSpeed, true);
             } else {
@@ -31,11 +31,24 @@ public class DriveController {
             }
     }
    
-   public static void loaderControls() throws CANTimeoutException {
-       if (Variables.leftStick.getRawButton(5)){
-           Variables.robotLoad.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
-       }
-       //This is the loading function. Right now I'm working on it, so it may not work -Jeremy
+   public static void loaderControls() {
+            //pickup solenoid
+            if (Variables.leftStick.getRawButton(3) || Variables.rightStick.getRawButton(3)) {
+                Variables.pickupSolenoid.set(true);
+            } else if (Variables.leftStick.getRawButton(2) || Variables.rightStick.getRawButton(2)) {
+                Variables.pickupSolenoid.set(false);
+            }
        
+            //Pickup motor
+            double pickupSpeed = 0;
+            if (Variables.leftStick.getRawButton(4) || Variables.rightStick.getRawButton(4)) {
+                pickupSpeed = -0.5;
+            }
+            if (Variables.leftStick.getRawButton(5) || Variables.rightStick.getRawButton(5)) {
+                pickupSpeed = 0.5;
+            }
+            Variables.pickupMotor.set(pickupSpeed);
+            
+            
    }
 }

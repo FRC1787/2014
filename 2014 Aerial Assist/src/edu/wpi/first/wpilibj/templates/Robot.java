@@ -60,11 +60,7 @@ public class Robot extends VisionRobot {
             
             //Driver Controls
             DriveController.driveControls(); //This calls the Driver Controlls and let the operator drive
-            try {
-                DriveController.loaderControls(); //This calls the Loading controls and calls to run the load function
-            } catch (CANTimeoutException ex) {
-                ex.printStackTrace();
-            }
+            DriveController.loaderControls(); //This calls the pickup function from the DriveController class
             DriveController.shiftingControls(); //Calls the shifting function from the DriveController class
         }
     }

@@ -2,8 +2,14 @@ package edu.wpi.first.wpilibj.templates;
 
 import edu.wpi.first.wpilibj.*;
 
-public class Variables {
-   
+/*This entire class is for variables. Right now many things are commented out due to the fact that there were
+too many problems with the driving and the variables used for the motors.*/
+public class Variables { 
+    /*Please try and keep all variables that are similar together. Ex. Motors next to joy sticks and drive
+    Controllers. Gryo next to the accelorometer and encoders, compressor near
+    pneumatics and solenoirs ,etc. Just make sure it makes sense.*/
+    
+    
      //Jaguar Motor Controlers
     public static CANJaguar leftMotor1;
     public static CANJaguar leftMotor2;

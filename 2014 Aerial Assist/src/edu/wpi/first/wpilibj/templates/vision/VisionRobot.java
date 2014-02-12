@@ -2,6 +2,8 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
+//Not exatly sure what this is...
 package edu.wpi.first.wpilibj.templates.vision;
 
 import edu.wpi.first.wpilibj.*;
