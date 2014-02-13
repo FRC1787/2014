@@ -16,6 +16,13 @@ public class Robot extends VisionRobot {
     public void robotInit() {
         System.out.println("The Robot has entered robotInit!");
         
+                
+        System.out.println("Shifter position set to false");
+        Variables.shifterPosition = false;
+        
+        System.out.println("Compressor started!");
+        Variables.compressor.start();
+        
         try {
             Variables.leftMotor1 = new CANJaguar(2);
             Variables.leftMotor2 = new CANJaguar(3);
@@ -30,11 +37,7 @@ public class Robot extends VisionRobot {
             
         } catch (CANTimeoutException e) {
             e.printStackTrace();
-        }        
-        Variables.shifterPosition = false;
-        //Shifter position set to false
-        Variables.compressor.start();
-        //Compressor started!
+        }
     }
 
     public Robot() {
