@@ -40,7 +40,9 @@ public class Variables {
     public static Compressor compressor = new Compressor(6, 6);
     public static Solenoid pickupSolenoid = new Solenoid(5);
     public static DoubleSolenoid catapultSolenoid1 = new DoubleSolenoid(3, 4);
-   // public static DoubleSolenoid catapultSolenoid2 = new DoubleSolenoid(4, 5);  --Currently not being used.
+    public static DoubleSolenoid catapultSolenoid2 = new DoubleSolenoid(4, 5);
+    
+    public static double shootRetractTime;
     
     //shifter position. false = foreward, true = reverse.
     public static boolean shifterPosition;
