@@ -8,7 +8,7 @@ public class ShootingFunctions {
     public static void shootingPiston() {    
         if (Variables.leftStick.getRawButton(1) || Variables.rightStick.getRawButton(1)) {
             Variables.catapultSolenoid1.set(DoubleSolenoid.Value.kForward);
-            Variables.catapultSolenoid2.set(DoubleSolenoid.Value.kReverse);
+          //  Variables.catapultSolenoid2.set(DoubleSolenoid.Value.kReverse);
             Variables.shootRetractTime = 2.0;
             //This is the amount of time it takes for the piston to retract
         }

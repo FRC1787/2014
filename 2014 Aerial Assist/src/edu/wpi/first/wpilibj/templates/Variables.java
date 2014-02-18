@@ -30,17 +30,17 @@ public class Variables {
     //sensors, encoder, accelerometer, and gyro perameters not final
     //public static Encoder leftEncoder = new Encoder(1, 2);
     //public static Encoder rightEncoder = new Encoder(3, 4);
-    public static Gyro gyro = new Gyro(1);
+    //public static Gyro gyro = new Gyro(1);
     //public static Accelerometer accelerometer = new Accelerometer(1);
     //public static boolean isOperatorControlled; // This is NOT needed, and overcomplicates things
     //public static boolean isEnabled; // This is NOT needed, and overcomplicates things
     
     //Pnumatics and Compressors
     public static DoubleSolenoid gearShifter = new DoubleSolenoid(1, 2);
-    public static Compressor compressor = new Compressor(6, 6);
+    public static Compressor compressor = new Compressor(5, 2);
     public static Solenoid pickupSolenoid = new Solenoid(5);
     public static DoubleSolenoid catapultSolenoid1 = new DoubleSolenoid(3, 4);
-    public static DoubleSolenoid catapultSolenoid2 = new DoubleSolenoid(4, 5);
+   // public static DoubleSolenoid catapultSolenoid2 = new DoubleSolenoid(4, 5);
     
     public static double shootRetractTime;
     
@@ -51,4 +51,6 @@ public class Variables {
     public static double driveSpeed = 1;
     
     public static double loaderSpeed = 0.1;
+
+    public static boolean isRunning = false;
 }

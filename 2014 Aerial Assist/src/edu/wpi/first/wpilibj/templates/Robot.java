@@ -16,12 +16,17 @@ public class Robot extends VisionRobot {
     public void robotInit() {
         System.out.println("The Robot has entered robotInit!");
         
+        Variables.isRunning = true;
                 
         System.out.println("Shifter position set to false");
         Variables.shifterPosition = false;
         
-        System.out.println("Compressor started!");
-        Variables.compressor.start();
+        while(Variables.isRunning && isEnabled()){
+        //System.out.println("Compressor started!");
+        //Variables.compressor.enabled();
+        //Variables.compressor.start();
+        System.out.println("robotInit is running bool running");
+        }
         
         try {
             Variables.leftMotor1 = new CANJaguar(2);
@@ -41,7 +46,14 @@ public class Robot extends VisionRobot {
     }
 
     public Robot() {
-        
+        while(isEnabled()){
+            //Variables.compressor.enabled();
+            //Variables.compressor.start();
+            System.out.println("Robot() isEnabled while called and running");
+            //if(!Variables.isRunning){
+            //Variables.isRunning = true;
+            //}
+        }
     }
     
     //Autonomous Code. This is run ONCE each time the code is initialized for 10 seconds.
@@ -56,7 +68,15 @@ public class Robot extends VisionRobot {
     public void operatorControl() {
         System.out.println("The Robot has entered operatorControl");
         while (isOperatorControl() && isEnabled()) {
+
+            //Compressor started
+            Variables.compressor.enabled();
+            Variables.compressor.start();
+            //Variables.compressor.getPressureSwitchValue();
+            System.out.println(Variables.compressor.getPressureSwitchValue());
+            
             //Shooting function
+            ShootingFunctions.shootingPiston();
             
             //Driving Controlls
             Variables.robotDrive.arcadeDrive(Variables.rightStick);
