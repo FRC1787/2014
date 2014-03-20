@@ -19,7 +19,7 @@ public class DriveController {
         }
    
    
-   public static void shiftingControls() {
+  /* public static void shiftingControls() {
          //Shifting functionl.
             if (Variables.leftStick.getRawButton(4) || Variables.rightStick.getRawButton(4) || !Variables.shifterPosition) {
                 Variables.gearShifter.set(DoubleSolenoid.Value.kForward);
@@ -29,7 +29,7 @@ public class DriveController {
                 Variables.gearShifter.set(DoubleSolenoid.Value.kReverse);
                 Variables.shifterPosition = true;
             }
-    }
+    }*/
    
    public static void loaderControls() {
             //pickup solenoid

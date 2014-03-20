@@ -60,6 +60,9 @@ public class Robot extends VisionRobot {
     public void autonomous() {
         System.out.println("The Robot has entered autonomous");
         
+        Variables.compressor.enabled();
+        Variables.compressor.start();
+        
         Autonomous.autoDrive(); //Runs the Autonomous drive function
         Autonomous.autoShoot(); //Runs the Autonomous shoot function
     }
@@ -72,7 +75,7 @@ public class Robot extends VisionRobot {
             //Compressor started
             Variables.compressor.enabled();
             Variables.compressor.start();
-            //Variables.compressor.getPressureSwitchValue();
+            // / Variables.compressor.getPressureSwitchValue();
             System.out.println(Variables.compressor.getPressureSwitchValue());
             
             //Shooting function
@@ -84,14 +87,17 @@ public class Robot extends VisionRobot {
             //Driver Controls
             DriveController.driveControls(); //This calls the Driver Controlls and let the operator drive
             DriveController.loaderControls(); //This calls the pickup function from the DriveController class
-            DriveController.shiftingControls(); //Calls the shifting function from the DriveController class
+            //DriveController.shiftingControls(); //Calls the shifting function from the DriveController class
         }
     }
 
     //This function is called each time the robot enters test mode.
     public void test() {
         System.out.println("The Robot has entered test mode");
+        Variables.compressor.enabled();
+        Variables.compressor.start();
         
         TestingFunctions.buttonTest(); //This just runs the button test function in the TestinFuntions class
     }
 }
+    

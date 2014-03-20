@@ -36,8 +36,8 @@ public class Variables {
     //public static boolean isEnabled; // This is NOT needed, and overcomplicates things
     
     //Pnumatics and Compressors
-    public static Compressor compressor = new Compressor(5, 2);
-    public static Solenoid pickupSolenoid = new Solenoid(5);
+    public static Compressor compressor = new Compressor(12, 6);
+    public static Solenoid pickupSolenoid = new Solenoid(3);
     public static DoubleSolenoid catapultSolenoid1 = new DoubleSolenoid(1, 2);
     public static DoubleSolenoid catapultSolenoid2 = new DoubleSolenoid(4, 5);
     public static DoubleSolenoid gearShifter = new DoubleSolenoid(7, 8);
