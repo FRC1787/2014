@@ -36,16 +36,32 @@ public class Variables {
     //public static boolean isEnabled; // This is NOT needed, and overcomplicates things
     
     //Pnumatics and Compressors
-    public static Compressor compressor = new Compressor(12, 6);
-    public static Solenoid pickupSolenoid = new Solenoid(3);
+    public static Compressor compressor = new Compressor(12, 3);
+    public static Solenoid pickupSolenoid = new Solenoid(6);
     public static DoubleSolenoid catapultSolenoid1 = new DoubleSolenoid(1, 2);
-    public static DoubleSolenoid catapultSolenoid2 = new DoubleSolenoid(4, 5);
-    public static DoubleSolenoid gearShifter = new DoubleSolenoid(7, 8);
+    public static DoubleSolenoid catapultSolenoid2 = new DoubleSolenoid(8, 7);
+    public static DoubleSolenoid gearShifter = new DoubleSolenoid(4, 5);
     
+    // Should automatic retracting for the launcher be enabled.
+    public static boolean automaticRetractEnabled = true;
+    
+    // Should launcher debug messages be printed.
+    public static boolean printLauncherDebugMessage = true;
+    
+    // Is the launcher in the process of retracting.
+    public static boolean launcherRetracting = false;
+    
+    // The FPGA timestamp when the shooter should retract.
     public static double shootRetractTime;
     
     //shifter position. false = foreward, true = reverse.
     public static boolean shifterPosition;
+    
+    public static String shifterPosBoard;
+    
+    public static boolean pickupButtonTime;
+    
+    public static boolean pickupMotorDir;
     
     //Public drive speed for robot. Modifiable from the driver station. <-- soon
     public static double driveSpeed = 1;

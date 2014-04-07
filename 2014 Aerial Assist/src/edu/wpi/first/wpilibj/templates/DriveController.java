@@ -19,17 +19,17 @@ public class DriveController {
         }
    
    
-  /* public static void shiftingControls() {
+  public static void shiftingControls() {
          //Shifting functionl.
-            if (Variables.leftStick.getRawButton(4) || Variables.rightStick.getRawButton(4) || !Variables.shifterPosition) {
+            if (Variables.leftStick.getRawButton(6) || Variables.rightStick.getRawButton(6)) {
                 Variables.gearShifter.set(DoubleSolenoid.Value.kForward);
                 Variables.shifterPosition = false;
             } else 
-            if (Variables.leftStick.getRawButton(5) || Variables.rightStick.getRawButton(5) || Variables.shifterPosition) {
+            if (Variables.leftStick.getRawButton(7) || Variables.rightStick.getRawButton(7)) {
                 Variables.gearShifter.set(DoubleSolenoid.Value.kReverse);
                 Variables.shifterPosition = true;
             }
-    }*/
+    }
    
    public static void loaderControls() {
             //pickup solenoid

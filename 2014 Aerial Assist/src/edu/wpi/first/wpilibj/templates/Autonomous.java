@@ -26,17 +26,25 @@ public class Autonomous {
     //This is the autoDrive function, it sets the safety to false, then drives the robot forward and then delays for 2 seconds
     public static void autoDrive() {
         Variables.robotDrive.setSafetyEnabled(false);
-        Variables.robotDrive.drive(-0.5, 0.0);
+        // Stupidity control
+        Variables.gearShifter.set(DoubleSolenoid.Value.kForward);
+        Variables.robotDrive.arcadeDrive(1, 0.0);
         Timer.delay(2.0);
         Variables.robotDrive.drive(0.0, 0.0);
     }
     
+    // Lower the loader mechanism
+    public static void lowerLoader()
+    {
+        Variables.pickupSolenoid.set(true);
+    }
+    
     //This is the autoShoot function, it fires the solenoid for the catapult.
     public static void autoShoot() {
-            Variables.catapultSolenoid1.set(DoubleSolenoid.Value.kForward);
             Variables.catapultSolenoid1.set(DoubleSolenoid.Value.kReverse);
-            
-            Variables.catapultSolenoid2.set(DoubleSolenoid.Value.kForward);
             Variables.catapultSolenoid2.set(DoubleSolenoid.Value.kReverse);
-        }
+            Timer.delay(2);
+            Variables.catapultSolenoid1.set(DoubleSolenoid.Value.kForward);
+            Variables.catapultSolenoid2.set(DoubleSolenoid.Value.kForward);
+    }
 }
